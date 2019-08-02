@@ -15,10 +15,13 @@ def read_file(filename):
         filename : str
             The filename to read.
     """
-    filehandle = open(filename)
-    file_data = filehandle.read()
-    filehandle.close()
-    return file_data
+    try:
+        filehandle = open(filename)
+        file_data = filehandle.read()
+        filehandle.close()
+        return file_data
+    except OSError as err:
+        print("Error reading file: {0}".format(err))
 
 
 class NameGenerator():
@@ -47,7 +50,10 @@ class NameGenerator():
         script_dir = os.path.dirname(__file__)
         rel_path = "data/names.txt"
         abs_file_path = os.path.join(script_dir, rel_path)
-        name_list = read_file(abs_file_path).split()
+        try:
+            name_list = read_file(abs_file_path).split()
+        except ValueError:
+            print("Error parsing names.txt file contents.")
         for i in range(count):
             key = b32encode(urandom(5))
             #concat names and UTF-8 key

@@ -1,15 +1,15 @@
-# NameGen
+# NameGen 🎲
+
 A unique name generator written in Python.  
 ## Prerequisites
 * Python 3
 * PIP 3
 ## Build
-docker build -t namegen_service .
+    docker build -t namegen_service .
 ## Run
-docker run --name=namegen_service -d --restart=always -p 7777:7777 -t namegen_service
-## API Endpoints
-
-*Endpoint requires no authentication.
+    docker run --name=namegen_service -d --restart=always -p 7777:7777 -t namegen_service
+## API Endpoints 
+ℹ︎ *Endpoints require no authentication.*
 
 ### Get unique names:
 
@@ -29,12 +29,15 @@ Get unique human and machine readable names.
 
 **Code** : `200 OK`
 
-**Content example:**
+**Example:**
 
-For the following curl request with a "count" of 3 provided: "curl --request GET http://127.0.0.1:7777/names/3"
+Request:
 
+    curl --request GET http://127.0.0.1:7777/names/3
 
-```json
+Result:
+
+```
 {
     [
     "Oscar_Lima_TJ6XBMTB",
@@ -44,11 +47,21 @@ For the following curl request with a "count" of 3 provided: "curl --request GET
 }
 ```
 ## Customize the names
--modify the list of names
+Modify ./data/names.txt to provide your own list of custom names:
+```
+Alfa
+Bravo
+Charlie
+Delta
+...
+```
+
 ## Run the tests:
-* pip install pytest
-* pip install tavern
-* pip install tavern[pytest]
+* `pip install tavern`
+* `pip install tavern[pytest]`
+* Run and build the service.
+* `py.test ./tests/test_api.tavern.yaml  -v`
 ## TODO
 * TLS
-* AuthN/AuthZ
+* AuthN
+* AuthZ

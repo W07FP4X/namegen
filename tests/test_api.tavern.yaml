@@ -1,18 +1,52 @@
 ---
-# Every test file has one or more tests...
-test_name: Get some fake data from the JSON placeholder API
+test_name: Invalid input tests
 
-# ...and each test has one or more stages (e.g. an HTTP request)
 stages:
-  - name: Make sure we have the right ID
+  - name: 404 is recieved for no count
 
-    # Define the request to be made...
+    # No count is provided
     request:
-      url: https://jsonplaceholder.typicode.com/posts/1
+      url: http://127.0.0.1:7777/names/
       method: GET
 
-    # ...and the expected response code and body
+    # expect a 404
+    response:
+      status_code: 404
+
+  - name: 404 error is recieved for exceeding lower bound limit
+
+    # Lower bound
+    request:
+      url: http://127.0.0.1:7777/names/0
+      method: GET
+
+    # expect a 404
+    response:
+      status_code: 404
+
+  - name: 404 error is recieved for exceeding upper bound limit
+
+    # Lower bound
+    request:
+      url: http://127.0.0.1:7777/names/10001
+      method: GET
+
+    # expect a 404
+    response:
+      status_code: 404
+
+---      
+
+test_name: Positive tests
+
+stages:
+  - name: Make sure success is recieved
+
+    # Count of 1 is provided
+    request:
+      url: http://127.0.0.1:7777/names/1
+      method: GET
+
+    # expect a 200
     response:
       status_code: 200
-      body:
-        id: 1

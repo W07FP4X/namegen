@@ -23,7 +23,7 @@ def valid_name_request(count):
         filename : str
             The filename to read.
     """
-    if 0 <= count <= 1000:
+    if 0 < count <= 1000:
         return True
 
 
@@ -52,8 +52,8 @@ class NameServer():
             names = ng.generate_names(count)
             return jsonify(names)
         else:
-            abort(404, message="Count value {} is invalid".format(count))
+            abort(404, "Count value {} is invalid".format(count))
 
 
 if __name__ == '__main__':
-     app.run(host='0.0.0.0', debug=True, port=7777)
+     app.run(host='0.0.0.0', debug=False, port=7777)
